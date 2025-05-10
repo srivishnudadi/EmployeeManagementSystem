@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    table, th, td {
+      border: 1px solid #ccc;
+      border-collapse: collapse;
+      padding: 10px;
+    }
+    img {
+      height: 60px;
+    }
+    form.inline {
+      display: inline;
+    }
+    .expired {
+      background-color: #ffe6e6; /* Light red background */
+      color: #a00;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <%- include('partials/header') %>
+
+  <div class="content">
+    <marquee>Hello, welcome to this CEM</marquee>
+
+    <% if (loggedin) { %>
+      <p>Welcome! <a href="/logout">Logout</a></p>
+
+      <!-- ADD FORM -->
+      <h3>Add New Employee</h3>
+      <form method="POST" action="/add" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="designation" placeholder="Designation" required>
+        <input type="text" name="company_name" placeholder="Company Name" required>
+        <input type="date" name="validity_date" required>
+        <input type="text" name="group" placeholder="Group" required>
+        <input type="file" name="photo" accept="image/*">
+        <button type="submit">Add</button>
+      </form>
+    <% } else { %>
+      <p><a href="/login">Login</a> to manage employees</p>
+    <% } %>
+
+    <!-- FILTER FORM -->
+    <form method="GET" action="/" style="margin-top: 20px;">
+      <input type="text" name="search" placeholder="Search by name" value="<%= search %>">
+      <select name="group">
+        <option value="">All Groups</option>
+        <option value="A" <%= group === 'A' ? 'selected' : '' %>>IT</option>
+        <option value="B" <%= group === 'B' ? 'selected' : '' %>>Group B</option>
+        <option value="C" <%= group === 'C' ? 'selected' : '' %>>Group C</option>
+      </select>
+      <button type="submit">Search</button>
+    </form>
+
+    <!-- EMPLOYEE TABLE -->
+    <% const today = new Date(); %>
+    <table style="margin-top: 20px;">
+      <thead>
+        <tr>
+          <th>SNO</th>
+          <th>Photo</th>
+          <th onclick="sortTable()" style="cursor: pointer;">Name <span id="sort-arrow" style="font-size: 12px;">&#x2195;</span></th> <!-- Sorting arrow -->
+          <th>Designation</th>
+          <th>Company</th>
+          <th>Validity</th>
+          <th>Group</th>
+          <% if (loggedin) { %><th>Actions</th><% } %>
+        </tr>
+      </thead>
+      <tbody>
+        <% employees.forEach((emp, index) => { 
+             const isExpired = new Date(emp.validity_date) < today;
+        %>
+          <tr class="<%= isExpired ? 'expired' : '' %>">
+            <td><%= index + 1 %></td>
+            <td>
+              <% if (emp.photo) { %>
+                <img src="<%= emp.photo %>" alt="Photo of <%= emp.name %>">
+              <% } else { %>
+                No Photo
+              <% } %>
+            </td>
+            <td><%= emp.name %></td>
+            <td><%= emp.designation %></td>
+            <td><%= emp.company_name %></td>
+            <td>
+              <%= emp.validity_date.toISOString().split('T')[0] %>
+              <% if (isExpired) { %>
+                <br><span style="color: red;">(Expired)</span>
+              <% } %>
+            </td>
+            <td><%= emp.group %></td>
+            <% if (loggedin) { %>
+              <td>
+                <!-- EDIT FORM -->
+                <form method="POST" action="/edit/<%= emp.id %>" enctype="multipart/form-data">
+                  <input type="text" name="name" value="<%= emp.name %>" required>
+                  <input type="text" name="designation" value="<%= emp.designation %>" required>
+                  <input type="text" name="company_name" value="<%= emp.company_name %>" required>
+                  <input type="date" name="validity_date" value="<%= emp.validity_date.toISOString().split('T')[0] %>" required>
+                  <input type="text" name="group" value="<%= emp.group %>" required>
+                  <input type="file" name="photo" accept="image/*">
+                  <button type="submit">Update</button>
+                </form>
+                <!-- DELETE FORM -->
+                <form method="POST" action="/delete/<%= emp.id %>" class="inline">
+                  <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                </form>
+              </td>
+            <% } %>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function sortTable() {
+      const table = document.querySelector("table tbody");
+      const rows = Array.from(table.rows);
+      const sortedRows = rows.sort((rowA, rowB) => {
+        const nameA = rowA.cells[2].textContent.trim().toLowerCase();  // Name column (3rd column)
+        const nameB = rowB.cells[2].textContent.trim().toLowerCase();
+
+        if (nameA < nameB) return -1;  // Sort alphabetically in ascending order
+        if (nameA > nameB) return 1;
+        return 0;
+      });
+
+      // Append the sorted rows back to the table
+      table.append(...sortedRows);
+    }
+  </script>
+
+  <script src="/js/script.js"></script>
+
+  <footer>
+    <p>&copy; 2025 My Website. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Follow us</a>
+    </div>
+  </footer>
+
+</body>
+</html>
