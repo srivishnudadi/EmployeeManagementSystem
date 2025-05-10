@@ -1,0 +1,276 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 30px;
+    background-color: #f5f5f5;
+  }
+  input, select, button {
+    margin: 5px;
+  }
+  table {
+    width: 100%;
+    background-color: #fff;
+  }
+  
+
+
+
+  /* Reset some defaults */
+body, h1, h2, h3, p, table {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 30px;
+  background-color: #f2f4f8;
+  color: #333;
+}
+
+/* Title */
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: #2980b9;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Forms */
+form {
+  margin-top: 15px;
+}
+input[type="text"],
+input[type="date"],
+input[type="password"],
+select {
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type="file"] {
+  padding: 4px;
+}
+
+button {
+  background-color: #2ecc71;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #27ae60;
+}
+
+/* Inline forms */
+form.inline {
+  display: inline;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+th, td {
+  border: 1px solid #e0e0e0;
+  padding: 12px 15px;
+  text-align: left;
+}
+th {
+  background-color: #3498db;
+  color: white;
+  text-transform: uppercase;
+}
+td img {
+  height: 60px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+/* Search & Filter */
+form[action="/"] {
+  margin-bottom: 20px;
+}
+
+/* Add form title */
+h3 {
+  margin-top: 30px;
+  color: #34495e;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  td {
+    margin-bottom: 10px;
+  }
+}
+
+
+
+/* Centered Login Page */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full screen height */
+  background-color: #ecf0f1;
+}
+
+.login-box {
+  background: #ffffff;
+  padding: 30px 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 300px;
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.login-box input[type="text"],
+.login-box input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-box button {
+  width: 100%;
+  background-color: #3498db;
+  color: white;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.login-box button:hover {
+  background-color: #2980b9;
+}
+
+.login-box p {
+  color: red;
+  margin-top: 10px;
+}
+
+
+
+/* Basic styles for the navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #3498db;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: padding 0.3s ease, background-color 0.3s ease;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar ul li {
+  margin: 0 20px;
+}
+
+.navbar ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.navbar ul li a:hover {
+  color: #f39c12;
+}
+
+/* Shrink the navbar on scroll */
+.navbar.shrink {
+  padding: 10px 0; /* Shrink the padding */
+  background-color: #2980b9; /* Change background color on scroll */
+}
+
+.navbar.shrink ul li a {
+  font-size: 16px; /* Reduce font size */
+}
+
+
+.heading{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 30px;
+}
+
+/* footer */
+footer {
+  background-color: #2c3e50;
+  color: white;
+  text-align: center;
+  padding: 20px 10px;
+  margin-top: auto;
+}
+
+footer p {
+  margin: 5px 0;
+}
+
+.footer-links {
+  margin-top: 10px;
+}
+
+.footer-links a {
+  color: #1abc9c;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+
+/* //sort arrow */
+
+  th {
+    position: relative;
+  }
+
+  #sort-arrow {
+    margin-left: 5px;
+    transition: transform 0.2s ease;
+  }
+
